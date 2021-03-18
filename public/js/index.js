@@ -2,7 +2,7 @@
 function boot() {
     if (localStorage.getItem('user') != null) {
 		console.log(localStorage.getItem('user'))
-        window.location.href = "http://localhost:3000/edit-user";
+        window.location.href = "./edit-user";
     }
 }
 
@@ -23,7 +23,7 @@ function send() {
                     localStorage.setItem('user', username);
                     alertify
                         .alert("Successfuly logged in", function () {
-                            window.location.href = "http://localhost:3000/edit-user";
+                            window.location.href = "./edit-user";
                         });
                 } else {
                     alertify
@@ -37,7 +37,7 @@ function send() {
 
 function validate() {
     if (localStorage.getItem('user') == null) {
-        window.location.href = "http://localhost:3000/";
+        window.location.href = "./";
     } else {
         let username = localStorage.getItem('user');
         $.post('/validate', { username: username },
@@ -45,7 +45,7 @@ function validate() {
                 if (data !== undefined) {
                     return true;
                 } else {
-                    window.location.href = "http://localhost:3000/";
+                    window.location.href = "./";
                 }
             });
     }
@@ -53,11 +53,11 @@ function validate() {
 
 function logOut() {
     localStorage.clear();
-    window.location.href = "http://localhost:3000/";
+    window.location.href = "./";
 }
 
 function signIn() {
-    window.location.href = "http://localhost:3000/new-user";
+    window.location.href = "./new-user";
 }
 
 function mouseoverPass(obj) {

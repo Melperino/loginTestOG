@@ -15,12 +15,16 @@ router.get('/', function(req, res, next) {
 
 /* GET new-user*/
 router.get('/new-user', function(req, res, next) {
-  res.render('new-user');
+  res.render('new-user', {title: 'Sign in'});
 });
 
 /* GET edit-user */
 router.get('/edit-user', function(req, res, next) {
-  res.render('edit-user');
+  res.render('edit-user', {title:'Change password'});
+});
+/* GET sip */
+router.get('/sip', function(req, res, next) {
+  res.render('sip', {title:'Make and recieve calls'});
 });
 
 /* POST Login */

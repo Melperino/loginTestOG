@@ -8,7 +8,7 @@ function register() {
 			localStorage.setItem('user', username);
 				alertify
 				.alert("Successfuly signed up", function () {
-					window.location.href = "http://localhost:3000/edit-user";
+					window.location.href = "./edit-user";
 				});
 			}
     });   
