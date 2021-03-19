@@ -1,5 +1,3 @@
-import sip from 'sip.js';
-
 var extensionTextbox;
 var connectButton;
 var callButton;
@@ -8,6 +6,8 @@ var disconnectButton;
 var audioElement;
 
 const webSocketServer = "wss://webrtc.opcionguik.com.mx:7443"
+
+const displayName = "SIP.js Demo";
 
 document.addEventListener("DOMContentLoaded", function(event) {
 	extensionTextbox = document.getElementById("txtExtension");
@@ -52,8 +52,8 @@ const simpleUserOptions = {
   }
 };
 
-const simpleUser = new sip.SimpleUser(webSocketServer, simpleUserOptions);
-  
+var simpleUser = new SIP.SimpleUser(webSocketServer, simpleUserOptions);
+
 function connect() {
 	disable(true);
     simpleUser
