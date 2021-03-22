@@ -29,6 +29,7 @@ router.get('/sip', function(req, res, next) {
 
 /* POST Login */
 router.post('/login', function(req, res, next) {
+	console.log(req.body);
   let query = {username: req.body.username};
 		mongoClient.connect(url, function(err,db){
         if (err) throw err;

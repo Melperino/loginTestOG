@@ -37,7 +37,6 @@ html,body{
 }
 
 .bodyLogin{
-	background-image: url("../images/background.png"); 
 	background-repeat: no-repeat;
 	background-position: center center;  
 	background-size: cover;

@@ -10,7 +10,7 @@ function send() {
     let username = document.getElementById('txtUser').value;
     let password = document.getElementById('txtPwd').value;
     
-    if (username == "" || password == "") {
+    if (username == undefined || password == undefined) {
         alertify
         .alert("Empty fields, do provide username n password pls thx", function () {
         });

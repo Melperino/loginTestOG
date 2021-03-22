@@ -4,6 +4,7 @@ var callButton;
 var hangupButton;
 var disconnectButton;
 var audioElement;
+var simpleUser;
 
 const webSocketServer = "wss://webrtc.opcionguik.com.mx:7443"
 
@@ -16,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	hangupButton = document.getElementById("btnHangUp");
 	disconnectButton = document.getElementById("btnDisconnect");
 	audioElement = document.getElementById("remoteAudio");
-
+	createSimple();
 });
 
 const simpleUserDelegate = {
@@ -35,27 +36,28 @@ const simpleUserDelegate = {
   }
 };
 
-const simpleUserOptions = {
-  delegate: simpleUserDelegate,
-  aor: "sip:"+ localStorage.getItem('user') +"@webrtc.opcionguik.com.mx",
-  userAgentOptions: {
-    logLevel: "debug",
-    displayName,
-    authorizationPassword: 'Hola.123',
-    authorizationUsername: localStorage.getItem('user'),
-    viaHost: 'webrtc.opcionguik.com.mx'
-  },
-  media: {
-    remote: {
-      audio: audioElement
-    }
-  }
-};
-
-var simpleUser = new SIP.Web.SimpleUser(webSocketServer, simpleUserOptions);
+function createSimple() {
+	const simpleUserOptions = {
+	  delegate: simpleUserDelegate,
+	  aor: "sip:"+ localStorage.getItem('user') +"@webrtc.opcionguik.com.mx:7443",
+	  userAgentOptions: {
+	    logLevel: "debug",
+	    displayName,
+	    authorizationPassword: 'Hola.123',
+	    authorizationUsername: localStorage.getItem('user'),
+	    viaHost: 'webrtc.opcionguik.com.mx'
+	  },
+	  media: {
+	    remote: {
+	      audio: audioElement
+	    }
+	  }
+	};
+	simpleUser = new SIP.Web.SimpleUser(webSocketServer, simpleUserOptions);
+}
 
 function connect() {
-	disable(true);
+	console.log(audioElement);
     simpleUser
         .connect()
         .then(function () {
@@ -82,6 +84,7 @@ function connect() {
 }
 
 function call() {
+
 	callButton.disabled = true;
     hangupButton.disabled = true;
     var target = "sip:" + extensionTextbox.value + "@webrtc.opcionguik.com.mx";
@@ -108,12 +111,12 @@ function hangUp() {
 }
 
 function disconnect() {
-	disable(true);
     simpleUser
         .disconnect()
         .then(function () {
         connectButton.disabled = false;
         disconnectButton.disabled = true;
+        extensionTextbox.disabled = true;
         callButton.disabled = true;
         hangupButton.disabled = true;
     })
@@ -131,12 +134,4 @@ async function receiveCall() {
 	await simpleUser.answer();
 	else
 	await simpleUser.answer();
-}
-
-function disable(value)
-{
-	extensionTextbox.disabled = value;
-	callButton.disabled = value;
-	hangupButton.disabled = value;
-	disconnectButton.disabled = value;
 }
