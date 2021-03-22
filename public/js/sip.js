@@ -52,7 +52,7 @@ const simpleUserOptions = {
   }
 };
 
-var simpleUser = new SIP.SimpleUser(webSocketServer, simpleUserOptions);
+var simpleUser = new SIP.Web.SimpleUser(webSocketServer, simpleUserOptions);
 
 function connect() {
 	disable(true);
@@ -61,6 +61,7 @@ function connect() {
         .then(function () {
         simpleUser.register().then(function () {
             console.log("registered");
+            extensionTextbox.disabled = false;
             connectButton.disabled = true;
             disconnectButton.disabled = false;
             callButton.disabled = false;
