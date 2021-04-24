@@ -14,7 +14,7 @@
     
 </head>
 
-<body onload="validate()">
+<body onload="initiateSip()">
   <div class="navigation col-lg-1">
     <h1 class="head-title">
       <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
@@ -24,7 +24,11 @@
       <a href="./edit-user">
         <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
           Change password
-      </a>      
+      </a>
+      <a id="monitor" style='display:none;' href="./admin-monitor">
+        <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+        Monitor connections
+      </a>           
     <nav id="user_logged">
       <a href="#" class="btn-logout">
         <span class="glyphicon glyphicon-log-out" aria-hidden="true" onclick="logOut()"></span>

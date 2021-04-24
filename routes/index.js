@@ -7,7 +7,6 @@ var url  = "mongodb://localhost:27017/loginTestDB";
 
 const bcrypt = require ('bcrypt');
 
-
 /* GET index. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'LoginTest' });
@@ -26,6 +25,10 @@ router.get('/edit-user', function(req, res, next) {
 router.get('/sip', function(req, res, next) {
   res.render('sip', {title:'Make and recieve calls'});
 });
+/* GET admin-monitor */
+router.get('/admin-monitor', function(req, res, next) {
+  res.render('admin-monitor', {title:'Monitor current connections'});
+});
 
 /* POST Login */
 router.post('/login', function(req, res, next) {
@@ -35,7 +38,7 @@ router.post('/login', function(req, res, next) {
         if (err) throw err;
         db.collection("users").find(query).toArray(function(err,result){
 			bcrypt.compare(req.body.password, result[0].password, function(err, resultCrypt) {
-				res.json(resultCrypt);
+				res.json({ success: resultCrypt, role : result[0].role});
 			});
         });
     });
@@ -51,6 +54,17 @@ router.post('/validate', function(req, res, next) {
         });
       });
   
+});
+
+/*POST ValidateAdmin */
+router.post('/validateAdmin', function(req,res,next){
+	let query = {username:req.body.username,role: 'admin'};
+	mongoClient.connect(url, function(err,db){
+        if (err) throw err;
+        db.collection("users").find(query).toArray(function(err,result){
+            res.json(result[0]);
+        });
+    });
 });
 
 /* POST EditUser*/
@@ -71,7 +85,7 @@ router.post('/editUser', function(req, res, next) {
 /*POST NewUser*/ 
 router.post('/newUser', function(req, res, next){
 	bcrypt.hash(req.body.password, 5, function(err, hash) {
-		let query = {username: req.body.username, password:hash}
+		let query = {username: req.body.username, password:hash,role :req.body.role}
 		mongoClient.connect(url, function(err, db) {
 		  if (err) throw err;  
 		  db.collection('users').insert(query, function(err, result) {

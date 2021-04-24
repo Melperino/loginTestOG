@@ -135,3 +135,8 @@ async function receiveCall() {
 	else
 	await simpleUser.answer();
 }
+
+function initiateSip() {
+    validate();
+    checkAdmin();
+}

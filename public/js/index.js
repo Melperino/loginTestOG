@@ -19,8 +19,9 @@ function send() {
     if (username != "" && password != "") {
         $.post('/login', { username: username, password: password },
             function (data, status) {
-                if (data == true) {
+                if (data.success == true) {
                     localStorage.setItem('user', username);
+                    localStorage.setItem('role', data.role)
                     alertify
                         .alert("Successfuly logged in", function () {
                             window.location.href = "./edit-user";
@@ -51,6 +52,11 @@ function validate() {
     }
 }
 
+function checkAdmin() {
+    if(localStorage.getItem('role') == 'admin') {
+        document.getElementById("monitor").style.display= 'block';
+    }
+}
 function logOut() {
     localStorage.clear();
     window.location.href = "./";

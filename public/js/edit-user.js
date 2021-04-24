@@ -1,6 +1,7 @@
 
 function getUser(){
 	validate();
+    checkAdmin();
 	document.getElementById("txtUser").value = localStorage.getItem('user');
 }
 

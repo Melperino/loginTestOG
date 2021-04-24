@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Login Test</title>
+  <script type="text/javascript" src="/js/jquery.min.js"></script>
+  <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" />
+  <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="/js/index.js"></script>
+  <script type="text/javascript" src="/js/admin-monitor.js"></script>
+  <link rel="stylesheet" href="stylesheets/style.css" />
+  <link rel="stylesheet" href="css/alertify.css" />
+  <script type="text/javascript" src="/js/alertify.js"></script>
+
+  <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+
+  <!-- Load our React component. -->
+  <script src="like_button.js"></script>
+</head>
+
+
+<body onload="validateAdmin()">
+  <div class="navigation col-lg-1">
+    <h1 class="head-title">
+      <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+        LogIn Test
+    </h1>
+    <nav id="navigation">
+    </nav>
+    <a href="./sip">
+    <span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>
+      Make/Recieve calls
+    </a>
+    <a href="./edit-user">
+    <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+      Change password
+    </a>
+    <nav id="user_logged">
+      <a href="#" class="btn-logout">
+        <span class="glyphicon glyphicon-log-out" aria-hidden="true" onclick="logOut()"></span>
+        Log out
+      </a>
+    </nav>
+  </div>
+  <div id="like_button_container"></div>
+</body>
+</html>
