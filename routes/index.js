@@ -1,4 +1,5 @@
 var express = require('express');
+var socketClient = require('./client.js');
 var router = express.Router();
 var bodyParser = require('body-parser');
 router.use(bodyParser.json());
@@ -30,6 +31,10 @@ router.get('/admin-monitor', function(req, res, next) {
   res.render('admin-monitor', {title:'Monitor current connections'});
 });
 
+router.get('/get-connections', function(req, res, next) {
+  res.json(socketClient.getData());
+});
+
 /* POST Login */
 router.post('/login', function(req, res, next) {
 	console.log(req.body);
@@ -39,6 +44,9 @@ router.post('/login', function(req, res, next) {
         db.collection("users").find(query).toArray(function(err,result){
 			bcrypt.compare(req.body.password, result[0].password, function(err, resultCrypt) {
 				res.json({ success: resultCrypt, role : result[0].role});
+				if (resultCrypt == true) {
+					socketClient.sendData({username : req.body.username ,role : result[0].role});
+				}
 			});
         });
     });
